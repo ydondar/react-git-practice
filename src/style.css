@@ -1,0 +1,69 @@
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+button {
+  background-color: lightblue;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 90px;
+  align-self: flex-end;
+  display: inline;
+}
+
+input {
+  padding: 10px;
+  border-radius: 7px;
+  margin-right: 7px;
+}
+
+.cerceve {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
+  background-color: lightcoral;
+  width: 400px;
+  height: 300px;
+}
+
+.inputRow {
+  display: flex;
+  gap: 7px;
+  margin-top: 40px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.deleteBtn {
+  padding: 4px 4px;
+  font-size: 12px;
+  width: 50px;
+  margin: 5px;
+}
+
+.deleteBtn {
+  margin-left: auto; /* 🔥 butonu her zaman en sağa atar */
+  flex-shrink: 0; /* 🔥 buton sıkışıp küçülmesin */
+}
+
+.text {
+  flex: 1; /* 🔥 yazı kalan alanı kullansın */
+}
+
+.todo-text {
+  text-decoration: none;
+}
+
+.done {
+  text-decoration: line-through;
+}
