@@ -20,7 +20,7 @@ function TodoApp() {
     const trimmedInput = input.trim();
 
     if (!trimmedInput) {
-      setError('Boş bırakmayın');
+      setError('This field cannot be empty.');
       return;
     }
 
@@ -29,7 +29,7 @@ function TodoApp() {
     });
 
     if (alreadyExist) {
-      alert('Aynı eleman listede ekli');
+      alert('The item is already in the list.');
       return;
     }
 
@@ -89,7 +89,7 @@ function handleCancelEdit() {
   return (
     <div>
       <input value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => (e.key === "Enter") && handleAddItem()}/> 
-      <button onClick={handleAddItem}>Ekle</button> 
+      <button onClick={handleAddItem}>Add</button> 
       <ul>
         {items.map(
           (
@@ -99,8 +99,8 @@ function handleCancelEdit() {
               {editingId === item.id ? 
                <> 
               <input value={editValue} onChange={(e) => setEditValue(e.target.value)}/>
-              <button onClick={handleSaveEdit}>Kaydet</button> 
-              <button onClick={handleCancelEdit}>İptal</button> 
+              <button onClick={handleSaveEdit}>Save</button> 
+              <button onClick={handleCancelEdit}>Cancel</button> 
               </> 
               :
               <>
@@ -108,10 +108,10 @@ function handleCancelEdit() {
                 {item.text}
               </span>
               <button onClick={() => toggleItem(item.id)}>
-              {item.done ? "Geri Al" : "Tamamla"}
+              {item.done ? "Undo" : "Complete"}
               </button> 
-              <button onClick={() => handleDeleteItem(item.id)}>Sil</button> 
-              <button onClick={() => handleEditItem(item.id)}>Düzenle</button> 
+              <button onClick={() => handleDeleteItem(item.id)}>Delete</button> 
+              <button onClick={() => handleEditItem(item.id)}>Edit</button> 
               </>
             }
             </li>
