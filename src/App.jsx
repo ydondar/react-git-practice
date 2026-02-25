@@ -1,4 +1,4 @@
-function App() { //
+function TodoApp() { 
   const [input, setInput] = useState('');
   const [items, setItems] = useState(() => {
     const saved = localStorage.getItem('todos');
