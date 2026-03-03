@@ -67,3 +67,8 @@ input {
 .done {
   text-decoration: line-through;
 }
+
+.error {
+  color:red;
+  margin-left: 75px;
+}
