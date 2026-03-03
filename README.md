@@ -1,38 +1,23 @@
-# \# React Todo App
+## React Todo App
 
-# 
+Simple Todo application built with React.
 
-# A simple Todo application built with React.
+### Features
 
-# 
+* Add new todos
+* Delete todos
+* Edit existing todos
+* Prevent duplicate entries
+* Mark as complete / undo
+* Filter todos (All / Active / Completed)
+* Persistent storage with LocalStorage
+* Auto-focus input while editing
 
-# \## Features
+### Tech Stack
 
-### \- Add new todos
-
-# \- Delete todos
-
-# \- Edit todos
-
-# \- Prevent duplicate entries
-
-# \- Mark as complete / undo
-
-# \- LocalStorage persistence
-
-# \- Auto focus on edit input
-
-# 
-
-# \## Tech Stack
-
-# \- React
-
-# \- useState
-
-# \- useEffect
-
-# \- useRef
-
-# \- LocalStorage API
-
+* React
+* JavaScript (ES6+)
+* useState
+* useEffect
+* useRef
+* LocalStorage API
