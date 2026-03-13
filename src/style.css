@@ -72,3 +72,8 @@ input {
   color:red;
   margin-left: 75px;
 }
+
+.active {
+  background: black;
+  color: white;
+}
