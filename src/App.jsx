@@ -10,8 +10,12 @@ function TodoApp() {
   const [editValue, setEditValue] = useState('');
   const editInputRef = useRef(null);
   const [items, setItems] = useState(() => {
+    try {
     const saved = localStorage.getItem('todos');
     return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
   });
 
   useEffect(() => {
