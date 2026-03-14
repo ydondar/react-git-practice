@@ -1,7 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-// useState = veri tutmak için (hafıza)
-// useEffect = bazı işlemleri belirli zamanlarda çalıştırmak için (bir şey değişince bunu yap)
-// useRef = bir HTML elemanına direkt ulaşmak için (şu input kutusunu bana ver, dokunayım)
 
 function TodoApp() {
   const [input, setInput] = useState(''); 
@@ -10,8 +7,12 @@ function TodoApp() {
   const [editValue, setEditValue] = useState('');
   const editInputRef = useRef(null);
   const [items, setItems] = useState(() => {
+    try {
     const saved = localStorage.getItem('todos');
     return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
   });
 
   useEffect(() => {
