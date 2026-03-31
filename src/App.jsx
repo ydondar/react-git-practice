@@ -63,8 +63,8 @@ function TodoApp() {
   }
 
   function handleDeleteItem(deleteId) {
-    const updatesItems = items.filter((item) => item.id !== deleteId);
-    setItems(updatesItems);
+    const updateItems = items.filter((item) => item.id !== deleteId);
+    setItems(updateItems);
   }
 
   function toggleItem(toggleId) {
