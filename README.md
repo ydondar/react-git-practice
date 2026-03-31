@@ -1,13 +1,13 @@
-## React Todo App
+## React Todo App with Filtering and LocalStorage
 
-A clean and minimal Todo application built with React.
+A clean and minimal Todo application built with React, featuring filtering, localStorage persistence, and inline editing.
 
 ### Features
 
 - Add, edit and delete todos
 - Prevent duplicate entries
 - Show inline validation and error messages
-- Mark todos as complete / undo
+- Mark todos as complete or undo
 - Filter todos (All / Active / Completed)
 - Save todos and selected filter with LocalStorage
 - Clear completed todos
@@ -33,3 +33,9 @@ A clean and minimal Todo application built with React.
 - Array methods (map, filter, some)
 - Persisting data in browser storage
 - Managing focus with useRef
+
+### Future Improvements
+
+- Add drag & drop reordering
+- Add due dates
+- Improve UI with animations
