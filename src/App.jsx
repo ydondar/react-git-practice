@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 function TodoApp() {
-  const [input, setInput] = useState(''); 
+  const [input, setInput] = useState('');
   const [error, setError] = useState('');
   const [editingId, setEditingId] = useState(null);
   const [editValue, setEditValue] = useState('');
   const editInputRef = useRef(null);
   const [items, setItems] = useState(() => {
     try {
-    const saved = localStorage.getItem('todos');
-    return saved ? JSON.parse(saved) : [];
+      const saved = localStorage.getItem('todos');
+      return saved ? JSON.parse(saved) : [];
     } catch {
       return [];
     }
@@ -20,72 +20,62 @@ function TodoApp() {
   }, [items]);
 
   const [filter, setFilter] = useState(() => {
-    const savedFilter = localStorage.getItem("todoFilter");
-    return savedFilter ? savedFilter : "all"
+    const savedFilter = localStorage.getItem('todoFilter');
+    return savedFilter ? savedFilter : 'all';
   });
 
   useEffect(() => {
-    localStorage.setItem("todoFilter", filter)
+    localStorage.setItem('todoFilter', filter);
   }, [filter]);
 
-
   useEffect(() => {
-    if (editingId !== null) {
+    if (editingId !== null && editInputRef.current) {
       editInputRef.current.focus();
     }
   }, [editingId]);
 
-
   function handleAddItem() {
     const trimmedInput = input.trim();
 
-
     if (!trimmedInput) {
-      setError('Cannot be empty');
+      setError('This field cannot be empty');
       return;
     }
 
-
-    const alreadyExist = items.some(
-      (item) => item.text.toLowerCase() === trimmedInput.toLowerCase()
+    const alreadyExist = items.some((item) => 
+    item.text.toLowerCase() === trimmedInput.toLowerCase()
     );
 
-
     if (alreadyExist) {
-      alert('Item already exists in the list');
+      setError('Item already exists in the list');
       return;
     }
 
-
-    const newItems = {
+    const newItem = {
       id: Date.now(),
       text: trimmedInput,
       done: false,
     };
 
-
     setError('');
-    setItems((prev) => [...prev, newItems]);
+    setItems((prev) => [...prev, newItem]);
     setInput('');
   }
 
-
   function handleDeleteItem(deleteId) {
-    const newItems = items.filter((item) => deleteId !== item.id);
-    setItems(newItems);
+    const updatesItems = items.filter((item) => item.id !== deleteId);
+    setItems(updatesItems);
   }
 
-
   function toggleItem(toggleId) {
-    const newItems = items.map((item) => {
+    const updateItems = items.map((item) => {
       if (toggleId === item.id) {
         return { ...item, done: !item.done };
       }
       return item;
     });
-    setItems(newItems);
+    setItems(updateItems);
   }
-
 
   function handleEditItem(editId) {
     const foundItems = items.find((item) => editId === item.id);
@@ -94,16 +84,13 @@ function TodoApp() {
     setEditValue(foundItems.text);
   }
 
-
   function handleSaveItem() {
     const trimmedValue = editValue.trim();
 
-
     if (!trimmedValue) {
-      setError('Cannot save empty value');
+      setError('This field cannot be empty');
       return;
     }
-
 
     const alreadyExist = items.some(
       (item) =>
@@ -111,32 +98,27 @@ function TodoApp() {
         item.id !== editingId
     );
 
-
     if (alreadyExist) {
-      alert('Item already exists in the list');
+      setError('Item already exists in the list');
       return;
     }
 
-
-    const newItems = items.map((item) => {
+    const updateItems = items.map((item) => {
       if (item.id === editingId) {
         return { ...item, text: trimmedValue };
       }
       return item;
     });
 
-
-    setItems(newItems);
+    setItems(updateItems);
     setEditingId(null);
     setEditValue('');
   }
-
 
   function handleCancelEdit() {
     setEditingId(null);
     setEditValue('');
   }
-
 
   const filteredItems = items.filter((item) => {
     if (filter === 'active') return !item.done;
@@ -145,9 +127,11 @@ function TodoApp() {
   });
 
   function clearCompletedItem() {
-    const newItems = items.filter((item) => !item.done)
-    setItems(newItems);
+    const updateItems = items.filter((item) => !item.done);
+    setItems(updateItems);
   }
+
+  const hasCompletedItems = items.some((item) => item.done);
 
   return (
     <div>
@@ -156,12 +140,16 @@ function TodoApp() {
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={(e) => e.key === 'Enter' && handleAddItem()}
       />
-      <button onClick={handleAddItem}>Add</button>
-      <div>
-        <button onClick={() => setFilter('all')}>All</button>
-        <button onClick={() => setFilter('active')}>Active</button>
-        <button onClick={() => setFilter('completed')}>Completed</button>
-      </div>
+      <button onClick={handleAddItem} disabled={!input.trim()}>
+        Add
+      </button>
+      {items.length > 0 && (
+        <div>
+          <button onClick={() => setFilter('all')}>All</button>
+          <button onClick={() => setFilter('active')}>Active</button>
+          <button onClick={() => setFilter('completed')}>Completed</button>
+        </div>
+      )}
       <ul>
         {filteredItems.map((item) => (
           <li key={item.id}>
@@ -196,15 +184,15 @@ function TodoApp() {
           </li>
         ))}
       </ul>
-      <button onClick={clearCompletedItem}>Clear Completed</button>
-
+      {hasCompletedItems && (
+        <button onClick={clearCompletedItem} disabled={!hasCompletedItems}>
+          Clear Completed
+        </button>
+      )}
       {error && <p>{error}</p>}
+      {items.length > 0 && <p> Current filter: {filter} </p>}
     </div>
   );
 }
 
-
 export default TodoApp;
-
-
-
