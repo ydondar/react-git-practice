@@ -33,9 +33,3 @@ A clean and minimal Todo application built with React, featuring filtering, loca
 - Array methods (map, filter, some)
 - Persisting data in browser storage
 - Managing focus with useRef
-
-### Future Improvements
-
-- Add drag & drop reordering
-- Add due dates
-- Improve UI with animations
