@@ -127,11 +127,11 @@ function TodoApp() {
   });
 
   function clearCompletedItem() {
-    const updateItems = items.filter((item) => !item.done);
+    const updateItems = items.filter(item => !item.done);
     setItems(updateItems);
   }
 
-  const hasCompletedItems = items.some((item) => item.done);
+  const hasCompletedItems = items.some(item => item.done);
 
   return (
     <div>
