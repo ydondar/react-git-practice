@@ -185,7 +185,7 @@ function TodoApp() {
         ))}
       </ul>
       {hasCompletedItems && (
-        <button onClick={clearCompletedItem} disabled={!hasCompletedItems}>
+        <button onClick={clearCompletedItem}>
           Clear Completed
         </button>
       )}
