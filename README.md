@@ -35,10 +35,12 @@ A clean and minimal Todo application built with React, featuring filtering, sear
 
 ## 📦 Installation
 
+```bash
 git clone https://github.com/ydondar/react-git-practice.git
-cd your-repo-name
+cd react-git-practice
 npm install
 npm start
+```
 
 ## ✨ Future Improvements
 
