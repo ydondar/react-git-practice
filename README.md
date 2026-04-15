@@ -2,8 +2,6 @@
 
 A clean and minimal Todo application built with React, featuring filtering, search, LocalStorage persistence, and inline editing.
 
----
-
 ## 🚀 Features
 
 * Add, edit, and delete todos
@@ -18,16 +16,12 @@ A clean and minimal Todo application built with React, featuring filtering, sear
 * Disable Add button when input is empty
 * Conditional rendering of filters and actions
 
----
-
 ## 🛠️ Tech Stack
 
 * React
 * JavaScript (ES6+)
 * React Hooks (useState, useEffect, useRef)
 * LocalStorage API
-
----
 
 ## 📚 What I Practiced
 
@@ -39,17 +33,12 @@ A clean and minimal Todo application built with React, featuring filtering, sear
 * Persisting data in browser storage
 * Managing focus with useRef
 
----
-
 ## 📦 Installation
 
-```bash
-git clone https://github.com/your-username/your-repo-name.git
+git clone https://github.com/ydondar/react-git-practice.git
 cd your-repo-name
 npm install
 npm start
-
----
 
 ## ✨ Future Improvements
 
@@ -57,5 +46,3 @@ npm start
 * Improve UI design
 * Add priority levels
 * Improve mobile responsiveness
-
----
