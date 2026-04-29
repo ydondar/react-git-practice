@@ -5,18 +5,25 @@ function TodoApp() {
   const [error, setError] = useState('');
   const [editingId, setEditingId] = useState(null);
   const [editValue, setEditValue] = useState('');
+  const [search, setSearch] = useState('');
   const editInputRef = useRef(null);
+
   const [items, setItems] = useState(() => {
+    const saved = localStorage.getItem('todos');
     try {
-      const saved = localStorage.getItem('todos');
       return saved ? JSON.parse(saved) : [];
-    } catch {
+    } catch (error) {
+      console.error('JSON parse error:', error);
       return [];
     }
   });
 
   useEffect(() => {
-    localStorage.setItem('todos', JSON.stringify(items));
+    try {
+      localStorage.setItem('todos', JSON.stringify(items));
+    } catch (error) {
+      console.error(error);
+    }
   }, [items]);
 
   const [filter, setFilter] = useState(() => {
@@ -29,30 +36,48 @@ function TodoApp() {
   }, [filter]);
 
   useEffect(() => {
-    if (editingId !== null && editInputRef.current) {
-      editInputRef.current.focus();
+    if (editingId !== null) {
+      editInputRef.current?.focus();
     }
   }, [editingId]);
+
+  const [darkMode, setDarkMode] = useState(() => {
+    try {
+      const saved = localStorage.getItem('darkmode');
+      return saved ? JSON.parse(saved) : false;
+    } catch {
+      return false;
+    }
+  });
+
+  useEffect(() => {
+    document.body.classList.toggle('dark', darkMode);
+    try {
+      localStorage.setItem('darkmode', JSON.stringify(darkMode));
+    } catch (error) {
+      console.error(error);
+    }
+  }, [darkMode]);
 
   function handleAddItem() {
     const trimmedInput = input.trim();
 
     if (!trimmedInput) {
-      setError('This field cannot be empty');
+      setError('Please enter a task');
       return;
     }
 
-    const alreadyExist = items.some((item) => 
-    item.text.toLowerCase() === trimmedInput.toLowerCase()
+    const alreadyExist = items.some(
+      (item) => trimmedInput.toLowerCase() === item.text.toLowerCase()
     );
 
     if (alreadyExist) {
-      setError('Item already exists in the list');
+      setError('This task already exists');
       return;
     }
 
     const newItem = {
-      id: Date.now(),
+      id: crypto.randomUUID(),
       text: trimmedInput,
       done: false,
     };
@@ -63,32 +88,33 @@ function TodoApp() {
   }
 
   function handleDeleteItem(deleteId) {
-    const updateItems = items.filter((item) => item.id !== deleteId);
-    setItems(updateItems);
+    const updatedItems = items.filter((item) => item.id !== deleteId);
+    setItems(updatedItems);
+    setError('');
   }
 
   function toggleItem(toggleId) {
-    const updateItems = items.map((item) => {
-      if (toggleId === item.id) {
+    const updatedItems = items.map((item) => {
+      if (item.id === toggleId) {
         return { ...item, done: !item.done };
       }
       return item;
     });
-    setItems(updateItems);
+    setItems(updatedItems);
   }
 
   function handleEditItem(editId) {
-    const foundItems = items.find((item) => editId === item.id);
-    if (!foundItems) return;
+    const foundItem = items.find((item) => item.id === editId);
+    if (!foundItem) return;
     setEditingId(editId);
-    setEditValue(foundItems.text);
+    setEditValue(foundItem.text);
   }
 
   function handleSaveItem() {
     const trimmedValue = editValue.trim();
 
     if (!trimmedValue) {
-      setError('This field cannot be empty');
+      setError('Task cannot be empty');
       return;
     }
 
@@ -99,100 +125,172 @@ function TodoApp() {
     );
 
     if (alreadyExist) {
-      setError('Item already exists in the list');
+      setError('This task already exists');
       return;
     }
 
-    const updateItems = items.map((item) => {
+    const updatedItems = items.map((item) => {
       if (item.id === editingId) {
         return { ...item, text: trimmedValue };
       }
       return item;
     });
-
-    setItems(updateItems);
+    setItems(updatedItems);
     setEditingId(null);
     setEditValue('');
+    setError('');
   }
 
   function handleCancelEdit() {
     setEditingId(null);
     setEditValue('');
+    setError('');
   }
 
   const filteredItems = items.filter((item) => {
-    if (filter === 'active') return !item.done;
-    if (filter === 'completed') return item.done;
-    return true;
+    const text = item.text.toLowerCase();
+    const query = search.trim().toLowerCase();
+
+    const matchesSearch = text.includes(query);
+
+    if (filter === 'active') return !item.done && matchesSearch;
+    if (filter === 'completed') return item.done && matchesSearch;
+    return matchesSearch;
   });
 
-  function clearCompletedItem() {
-    const updateItems = items.filter(item => !item.done);
-    setItems(updateItems);
+  function clearCompletedItems() {
+    const activeItems = items.filter((item) => !item.done);
+    setItems(activeItems);
+    setError('');
   }
 
-  const hasCompletedItems = items.some(item => item.done);
+  const hasCompletedItems = items.some((item) => item.done);
 
   return (
-    <div>
-      <input
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        onKeyDown={(e) => e.key === 'Enter' && handleAddItem()}
-      />
-      <button onClick={handleAddItem} disabled={!input.trim()}>
-        Add
-      </button>
+    <div className={`todo-container ${darkMode ? 'dark' : ''}`}>
+      <div className="header">
+        <h2>Todo App</h2>
+        <div className="header-right">
+          <span className="badge">{filteredItems.length} tasks</span>
+          <button
+            className={`dark-btn ${darkMode ? 'to-light' : 'to-dark'}`}
+            onClick={() => setDarkMode((prev) => !prev)}
+          >
+            {darkMode ? 'Light' : 'Dark'}
+          </button>
+        </div>
+      </div>
+      <div className="todo-row">
+        <input
+          value={input}
+          placeholder="Please add a task"
+          onChange={(e) => {
+            setInput(e.target.value);
+            setError('');
+          }}
+          onKeyDown={(e) => e.key === 'Enter' && handleAddItem()}
+        />
+        <button
+          className="add-btn"
+          onClick={handleAddItem}
+          disabled={!input.trim()}
+        >
+          Add
+        </button>
+      </div>
+      {error && <p className="message-box error-text">{error}</p>}
       {items.length > 0 && (
-        <div>
-          <button onClick={() => setFilter('all')}>All</button>
-          <button onClick={() => setFilter('active')}>Active</button>
-          <button onClick={() => setFilter('completed')}>Completed</button>
+        <div className="search-container">
+          <div className="search-input">
+            <input
+              value={search}
+              placeholder="Search"
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
+          <div className="todo-filters">
+            <button
+              className={`filter-btn ${filter === 'all' ? 'active' : ''}`}
+              onClick={() => setFilter('all')}
+            >
+              All
+            </button>
+            <button
+              className={`filter-btn ${filter === 'active' ? 'active' : ''}`}
+              onClick={() => setFilter('active')}
+            >
+              Active
+            </button>
+            <button
+              className={`filter-btn ${filter === 'completed' ? 'active' : ''}`}
+              onClick={() => setFilter('completed')}
+            >
+              Completed
+            </button>
+          </div>
         </div>
       )}
-      <ul>
+      <ul className="todo-list">
         {filteredItems.map((item) => (
-          <li key={item.id}>
-            {editingId === item.id ? (
+          <li className="todo-item" key={item.id}>
+            {item.id === editingId ? (
               <>
                 <input
                   ref={editInputRef}
                   value={editValue}
                   onChange={(e) => setEditValue(e.target.value)}
                   onKeyDown={(e) => {
-                    e.key === 'Enter' && handleSaveItem();
-                    e.key === 'Escape' && handleCancelEdit();
+                    if (e.key === 'Enter') handleSaveItem();
+                    else if (e.key === 'Escape') handleCancelEdit();
                   }}
                 />
-                <button onClick={handleSaveItem}>Save</button>
-                <button onClick={handleCancelEdit}>Cancel</button>
+                <div className="edit-actions">
+                  <button className="save-btn" onClick={handleSaveItem}>
+                    Save
+                  </button>
+                  <button className="cancel-btn" onClick={handleCancelEdit}>
+                    Cancel
+                  </button>
+                </div>
               </>
             ) : (
               <>
-                <span className={item.done ? 'todo-text done' : 'todo-text'}>
+                <span className={`todo-text ${item.done ? 'done' : ''}`}>
                   {item.text}
                 </span>
-                <button onClick={() => handleEditItem(item.id)}>Edit</button>
-                <button onClick={() => handleDeleteItem(item.id)}>
-                  Delete
-                </button>
-                <button onClick={() => toggleItem(item.id)}>
-                  {item.done ? 'Undo' : 'Complete'}
-                </button>
+                <div className="items-actions">
+                  <button
+                    className="edit-btn"
+                    onClick={() => handleEditItem(item.id)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="item-complete-btn"
+                    onClick={() => toggleItem(item.id)}
+                  >
+                    {item.done ? 'Undo' : 'Complete'}
+                  </button>
+                  <button
+                    className="delete-btn"
+                    onClick={() => handleDeleteItem(item.id)}
+                  >
+                    Delete
+                  </button>
+                </div>
               </>
             )}
           </li>
         ))}
       </ul>
-      {hasCompletedItems && (
-        <button onClick={clearCompletedItem}>
-          Clear Completed
-        </button>
-      )}
-      {error && <p>{error}</p>}
-      {items.length > 0 && <p> Current filter: {filter} </p>}
+      <div className="completed-container">
+        {hasCompletedItems && (
+          <button className="completed-btn" onClick={clearCompletedItems}>
+            Clear Completed
+          </button>
+        )}
+      </div>
     </div>
   );
 }
-
 export default TodoApp;

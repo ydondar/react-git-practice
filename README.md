@@ -1,47 +1,16 @@
-# 📝 React Todo App
+# React + Vite
 
-A clean and responsive Todo application built with React.  
-It includes filtering, search, dark mode, LocalStorage persistence, inline editing, and form validation.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## 🚀 Features
+Currently, two official plugins are available:
 
-- Add, edit, and delete todos
-- Prevent duplicate tasks
-- Mark todos as complete or undo
-- Filter todos by All / Active / Completed
-- Search todos
-- Dark mode toggle
-- Save todos, selected filter, and theme preference with LocalStorage
-- Clear completed todos
-- Auto-focus input while editing
-- Disable Add button when input is empty
-- Responsive design for mobile screens
-- Error handling for invalid input and duplicate tasks
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-## 🛠️ Tech Stack
+## React Compiler
 
-- React
-- JavaScript (ES6+)
-- React Hooks: useState, useEffect, useRef
-- CSS
-- LocalStorage API
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## 📚 What I Practiced
+## Expanding the ESLint configuration
 
-- State management with React Hooks
-- Controlled components
-- Conditional rendering
-- Form validation and error handling
-- Array methods: map, filter, some
-- Persisting data in browser storage
-- Managing focus with useRef
-- Responsive layout with CSS media queries
-- Dark mode UI handling
-
-## 📦 Installation
-
-```bash
-git clone https://github.com/ydondar/react-git-practice.git
-cd react-git-practice
-npm install
-npm run dev
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
