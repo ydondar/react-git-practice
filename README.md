@@ -1,16 +1,47 @@
-# React + Vite
+# 📝 React Todo App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A clean and responsive Todo application built with React.  
+It includes filtering, search, dark mode, LocalStorage persistence, inline editing, and validation.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Add, edit, and delete todos
+- Prevent duplicate tasks
+- Mark todos as complete or undo
+- Filter todos (All / Active / Completed)
+- Search functionality
+- Dark mode toggle
+- Save todos, filter, and theme with LocalStorage
+- Clear completed todos
+- Auto-focus input while editing
+- Disable Add button when input is empty
+- Responsive design
+- Error handling for invalid input and duplicates
 
-## React Compiler
+## 🛠️ Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React
+- JavaScript (ES6+)
+- React Hooks (useState, useEffect, useRef)
+- CSS
+- LocalStorage API
 
-## Expanding the ESLint configuration
+## 📚 What I Practiced
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- State management with React Hooks
+- Controlled components
+- Conditional rendering
+- Form validation and error handling
+- Array methods (map, filter, some)
+- Persisting data with LocalStorage
+- Managing focus with useRef
+- Responsive design with CSS
+- Dark mode implementation
+
+## 📦 Installation
+
+```bash
+git clone https://github.com/ydondar/react-git-practice.git
+cd react-git-practice
+npm install
+npm run dev
