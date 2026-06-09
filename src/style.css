@@ -79,7 +79,7 @@ button:not(:disabled):hover {
 
 .todo-container.dark {
   background-color: #1f2937;
-  color:white;
+  color: white;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
@@ -335,7 +335,6 @@ button:not(:disabled):hover {
 
 .todo-container.dark .save-btn:hover {
   background-color: #22c55e;
-  
 }
 
 .cancel-btn {
