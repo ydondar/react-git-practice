@@ -11,6 +11,10 @@
   background: #f9fafb;
 }
 
+body.dark #root {
+  background: #111827;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
