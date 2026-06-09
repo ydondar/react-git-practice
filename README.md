@@ -7,15 +7,15 @@ https://react-git-practice.vercel.app/
 A clean and responsive Todo application built with React.  
 It includes filtering, search, dark mode, LocalStorage persistence, inline editing, and validation.
 
-📸 Screenshots
+## 📸 Screenshots
 
-☀️ Light Mode
+### ☀️ Light Mode
 
-./assets/light-mode.png
+![Light Mode](./assets/light-mode.png)
 
 ### 🌙 Dark Mode
 
-.assets/dark-mode.png
+![Dark Mode](./assets/dark-mode.png)
 
 ## 🚀 Features
 
