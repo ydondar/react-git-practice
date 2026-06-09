@@ -1,38 +1,47 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from "react";
 
 function TodoApp() {
-  const [input, setInput] = useState('');
-  const [error, setError] = useState('');
+  const [input, setInput] = useState("");
+  const [error, setError] = useState("");
   const [editingId, setEditingId] = useState(null);
-  const [editValue, setEditValue] = useState('');
-  const [search, setSearch] = useState('');
+  const [editValue, setEditValue] = useState("");
+  const [search, setSearch] = useState("");
   const editInputRef = useRef(null);
 
   const [items, setItems] = useState(() => {
-    const saved = localStorage.getItem('todos');
+    const saved = localStorage.getItem("todos");
     try {
       return saved ? JSON.parse(saved) : [];
     } catch (error) {
-      console.error('JSON parse error:', error);
+      console.error("JSON parse error:", error);
       return [];
     }
   });
 
   useEffect(() => {
     try {
-      localStorage.setItem('todos', JSON.stringify(items));
+      localStorage.setItem("todos", JSON.stringify(items));
     } catch (error) {
       console.error(error);
     }
   }, [items]);
 
   const [filter, setFilter] = useState(() => {
-    const savedFilter = localStorage.getItem('todoFilter');
-    return savedFilter ? savedFilter : 'all';
+    try {
+      const savedFilter = localStorage.getItem("todoFilter");
+      return savedFilter ? savedFilter : "all";
+    } catch (error) {
+      console.error(error);
+      return "all";
+    }
   });
 
   useEffect(() => {
-    localStorage.setItem('todoFilter', filter);
+    try {
+      localStorage.setItem("todoFilter", filter);
+    } catch (error) {
+      console.error(error);
+    }
   }, [filter]);
 
   useEffect(() => {
@@ -43,17 +52,18 @@ function TodoApp() {
 
   const [darkMode, setDarkMode] = useState(() => {
     try {
-      const saved = localStorage.getItem('darkmode');
+      const saved = localStorage.getItem("darkmode");
       return saved ? JSON.parse(saved) : false;
-    } catch {
+    } catch (error) {
+      console.error(error);
       return false;
     }
   });
 
   useEffect(() => {
-    document.body.classList.toggle('dark', darkMode);
+    document.body.classList.toggle("dark", darkMode);
     try {
-      localStorage.setItem('darkmode', JSON.stringify(darkMode));
+      localStorage.setItem("darkmode", JSON.stringify(darkMode));
     } catch (error) {
       console.error(error);
     }
@@ -63,7 +73,7 @@ function TodoApp() {
     const trimmedInput = input.trim();
 
     if (!trimmedInput) {
-      setError('Please enter a task');
+      setError("Please enter a task");
       return;
     }
 
@@ -72,7 +82,7 @@ function TodoApp() {
     );
 
     if (alreadyExist) {
-      setError('This task already exists');
+      setError("This task already exists");
       return;
     }
 
@@ -82,15 +92,15 @@ function TodoApp() {
       done: false,
     };
 
-    setError('');
+    setError("");
     setItems((prev) => [...prev, newItem]);
-    setInput('');
+    setInput("");
   }
 
   function handleDeleteItem(deleteId) {
     const updatedItems = items.filter((item) => item.id !== deleteId);
     setItems(updatedItems);
-    setError('');
+    setError("");
   }
 
   function toggleItem(toggleId) {
@@ -114,7 +124,7 @@ function TodoApp() {
     const trimmedValue = editValue.trim();
 
     if (!trimmedValue) {
-      setError('Task cannot be empty');
+      setError("Task cannot be empty");
       return;
     }
 
@@ -125,7 +135,7 @@ function TodoApp() {
     );
 
     if (alreadyExist) {
-      setError('This task already exists');
+      setError("This task already exists");
       return;
     }
 
@@ -137,14 +147,14 @@ function TodoApp() {
     });
     setItems(updatedItems);
     setEditingId(null);
-    setEditValue('');
-    setError('');
+    setEditValue("");
+    setError("");
   }
 
   function handleCancelEdit() {
     setEditingId(null);
-    setEditValue('');
-    setError('');
+    setEditValue("");
+    setError("");
   }
 
   const filteredItems = items.filter((item) => {
@@ -153,30 +163,30 @@ function TodoApp() {
 
     const matchesSearch = text.includes(query);
 
-    if (filter === 'active') return !item.done && matchesSearch;
-    if (filter === 'completed') return item.done && matchesSearch;
+    if (filter === "active") return !item.done && matchesSearch;
+    if (filter === "completed") return item.done && matchesSearch;
     return matchesSearch;
   });
 
   function clearCompletedItems() {
     const activeItems = items.filter((item) => !item.done);
     setItems(activeItems);
-    setError('');
+    setError("");
   }
 
   const hasCompletedItems = items.some((item) => item.done);
 
   return (
-    <div className={`todo-container ${darkMode ? 'dark' : ''}`}>
+    <div className={`todo-container ${darkMode ? "dark" : ""}`}>
       <div className="header">
         <h2>Todo App</h2>
         <div className="header-right">
           <span className="badge">{filteredItems.length} tasks</span>
           <button
-            className={`dark-btn ${darkMode ? 'to-light' : 'to-dark'}`}
+            className={`dark-btn ${darkMode ? "to-light" : "to-dark"}`}
             onClick={() => setDarkMode((prev) => !prev)}
           >
-            {darkMode ? 'Light' : 'Dark'}
+            {darkMode ? "Light" : "Dark"}
           </button>
         </div>
       </div>
@@ -186,9 +196,9 @@ function TodoApp() {
           placeholder="Please add a task"
           onChange={(e) => {
             setInput(e.target.value);
-            setError('');
+            setError("");
           }}
-          onKeyDown={(e) => e.key === 'Enter' && handleAddItem()}
+          onKeyDown={(e) => e.key === "Enter" && handleAddItem()}
         />
         <button
           className="add-btn"
@@ -210,20 +220,20 @@ function TodoApp() {
           </div>
           <div className="todo-filters">
             <button
-              className={`filter-btn ${filter === 'all' ? 'active' : ''}`}
-              onClick={() => setFilter('all')}
+              className={`filter-btn ${filter === "all" ? "active" : ""}`}
+              onClick={() => setFilter("all")}
             >
               All
             </button>
             <button
-              className={`filter-btn ${filter === 'active' ? 'active' : ''}`}
-              onClick={() => setFilter('active')}
+              className={`filter-btn ${filter === "active" ? "active" : ""}`}
+              onClick={() => setFilter("active")}
             >
               Active
             </button>
             <button
-              className={`filter-btn ${filter === 'completed' ? 'active' : ''}`}
-              onClick={() => setFilter('completed')}
+              className={`filter-btn ${filter === "completed" ? "active" : ""}`}
+              onClick={() => setFilter("completed")}
             >
               Completed
             </button>
@@ -240,8 +250,8 @@ function TodoApp() {
                   value={editValue}
                   onChange={(e) => setEditValue(e.target.value)}
                   onKeyDown={(e) => {
-                    if (e.key === 'Enter') handleSaveItem();
-                    else if (e.key === 'Escape') handleCancelEdit();
+                    if (e.key === "Enter") handleSaveItem();
+                    else if (e.key === "Escape") handleCancelEdit();
                   }}
                 />
                 <div className="edit-actions">
@@ -255,7 +265,7 @@ function TodoApp() {
               </>
             ) : (
               <>
-                <span className={`todo-text ${item.done ? 'done' : ''}`}>
+                <span className={`todo-text ${item.done ? "done" : ""}`}>
                   {item.text}
                 </span>
                 <div className="items-actions">
@@ -269,7 +279,7 @@ function TodoApp() {
                     className="item-complete-btn"
                     onClick={() => toggleItem(item.id)}
                   >
-                    {item.done ? 'Undo' : 'Complete'}
+                    {item.done ? "Undo" : "Complete"}
                   </button>
                   <button
                     className="delete-btn"
