@@ -1,5 +1,18 @@
+/* ================= GLOBAL ================= */
+
 * {
   box-sizing: border-box;
+}
+
+:root {
+  --primary: #3b82f6;
+  --primary-dark: #2563eb;
+
+  --success: #22c55e;
+  --success-dark: #16a34a;
+
+  --danger: #ef4444;
+  --danger-dark: #dc2626;
 }
 
 #root {
@@ -15,25 +28,36 @@ body.dark #root {
   background: #111827;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+button {
+  padding: 9px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.header-right {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
+button:not(:disabled):hover {
+  transform: translateY(-1px);
 }
 
-.badge {
-  background: #3b82f6;
+/* ================= TODO CONTAINER ================= */
+
+.todo-container {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  max-width: 550px;
+  height: 550px;
+  margin: 60px auto;
+  padding: 20px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.todo-container.dark {
+  background: #1f2937;
   color: white;
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-size: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
 .todo-container input {
@@ -53,34 +77,154 @@ body.dark #root {
   color: #9ca3af;
 }
 
-button {
-  padding: 9px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: all 0.2s ease;
-  cursor: pointer;
-}
+/* ================= HEADER ================= */
 
-button:not(:disabled):hover {
-  transform: translateY(-1px);
-}
-
-.todo-container {
+.header {
   display: flex;
-  flex-direction: column;
-  width: 90%;
-  max-width: 550px;
-  height: 550px;
-  padding: 20px;
-  margin: 60px auto;
-  border-radius: 12px;
-  background: #fff;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  justify-content: space-between;
+  align-items: center;
 }
 
+<<<<<<< HEAD
 .todo-container.dark {
   background-color: #1f2937;
   color: white;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+=======
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.badge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--primary);
+  color: white;
+  font-size: 12px;
+}
+
+/* ================= DARK MODE BUTTON ================= */
+
+.dark-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: 23px;
+  padding: 4px 10px;
+  border: none;
+  border-radius: 999px;
+  background: var(--primary-dark);
+  color: white;
+  font-size: 12px;
+}
+
+.dark-btn.to-dark {
+  background: white;
+  color: black;
+  border: 1px solid var(--primary);
+}
+
+.dark-btn.to-light {
+  background: #d1d5db;
+  color: black;
+  border: 1px solid #d1d5db;
+}
+
+/* ================= ADD TODO ================= */
+
+.todo-row {
+  display: flex;
+  margin-top: 50px;
+}
+
+.todo-row input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.add-btn {
+  padding: 10px 14px;
+  border: none;
+  border-radius: 8px;
+  background: var(--primary);
+  color: white;
+}
+
+.add-btn:hover {
+  background: var(--primary-dark);
+}
+
+.add-btn:disabled {
+  background: #c7d2fe;
+  color: white;
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+.todo-container.dark .add-btn {
+  background: var(--primary-dark);
+}
+
+/* ================= ERROR ================= */
+
+.message-box {
+  min-height: 20px;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.error-text {
+  width: 60%;
+  margin: 15px auto 0;
+  background: red;
+  color: white;
+}
+
+/* ================= SEARCH ================= */
+
+.search-input {
+  display: flex;
+  justify-content: center;
+}
+
+.search-input input {
+  width: 250px;
+  margin-top: 10px;
+}
+
+/* ================= FILTERS ================= */
+
+.todo-filters {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.filter-btn {
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: transparent;
+  color: #111;
+}
+
+.filter-btn:hover {
+  background: #f3f4f6;
+}
+
+.filter-btn.active {
+  background: var(--primary);
+  color: white;
+}
+
+.filter-btn.active:hover {
+  background: var(--primary-dark);
+>>>>>>> 215fcd2 (Refactor CSS with variables)
 }
 
 .todo-container.dark .filter-btn {
@@ -93,145 +237,32 @@ button:not(:disabled):hover {
 }
 
 .todo-container.dark .filter-btn.active {
-  background: #2563eb;
-  color: white;
-  border-color: #2563eb;
-}
-
-.todo-row {
-  display: flex;
-  margin-top: 50px;
-}
-
-.todo-row input {
-  flex: 1;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-}
-
-.add-btn {
-  padding: 10px 14px;
-  border-radius: 8px;
-  background: #3b82f6;
-  color: white;
-  border: none;
-}
-
-.add-btn:hover {
-  background-color: #2563eb;
-}
-
-.add-btn:disabled {
-  background-color: #c7d2fe;
-  color: white;
-  cursor: not-allowed;
-  opacity: 0.8;
-}
-
-.todo-container.dark .add-btn {
-  background: #2563eb;
-  opacity: 1;
-}
-
-.dark-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 999px;
-  border: none;
-  background-color: #2563eb;
-  color: white;
-  width: auto;
-  height: 23px;
-  padding: 4px 10px;
-  font-size: 12px;
-}
-
-.dark-btn.to-dark {
-  background-color: white;
-  color: black;
-  border: 1px solid #3b82f6;
-}
-
-.dark-btn.to-light {
-  background-color: #d1d5db;
-  color: black;
-  border: 1px solid #d1d5db;
-}
-
-.message-box {
-  min-height: 20px;
-  text-align: center;
-  border-radius: 5px;
-}
-
-.error-text {
-  width: 60%;
-  margin: 15px auto 0;
-  background-color: red;
+  background: var(--primary-dark);
   color: white;
 }
 
-.search-input {
-  display: flex;
-  justify-content: center;
-}
-
-.search-input input {
-  width: 250px;
-  margin-top: 10px;
-}
-
-.todo-filters {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 15px;
-}
-
-.filter-btn {
-  background: transparent;
-  color: #111;
-  border-radius: 10px;
-  border: 1px solid transparent;
-  cursor: pointer;
-}
-
-.filter-btn:hover {
-  background: #f3f4f6;
-}
-
-.filter-btn.active {
-  background: #3b82f6;
-  color: white;
-  border-color: #3b82f6;
-}
-
-.filter-btn.active:hover {
-  background: #2563eb;
-}
+/* ================= TODO LIST ================= */
 
 .todo-list {
   display: flex;
   flex: 1;
   flex-direction: column;
   width: 100%;
+  max-height: 250px;
   margin: 20px 0 0;
   padding: 0;
   list-style: none;
-  max-height: 250px;
   overflow-y: auto;
 }
 
 .todo-item {
-  background: #f9f9f9;
-  padding: 12px;
-  border-radius: 10px;
-  margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 10px;
+  padding: 12px;
+  border-radius: 10px;
+  background: #f9f9f9;
 }
 
 .todo-item:hover {
@@ -252,14 +283,15 @@ button:not(:disabled):hover {
   font-size: 16px;
 }
 
-.todo-container.dark .todo-text {
-  color: white;
-  font-weight: bold;
-}
-
 .todo-text.done {
   text-decoration: line-through;
 }
+
+.todo-container.dark .todo-text {
+  color: white;
+}
+
+/* ================= ITEM ACTIONS ================= */
 
 .items-actions {
   display: flex;
@@ -267,20 +299,14 @@ button:not(:disabled):hover {
 }
 
 .edit-btn {
+  border: none;
+  border-radius: 5px;
   background: #4b5563;
   color: white;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
 }
 
 .edit-btn:hover {
   background: #374151;
-}
-
-.todo-container.dark .edit-btn {
-  background: #4b5563;
-  color: white;
 }
 
 .todo-container.dark .edit-btn:hover {
@@ -288,29 +314,29 @@ button:not(:disabled):hover {
 }
 
 .item-complete-btn {
-  background-color: #22c55e;
-  color: white;
-  border-radius: 5px;
   border: none;
-  cursor: pointer;
+  border-radius: 5px;
+  background: var(--success);
+  color: white;
 }
 
 .item-complete-btn:hover {
-  background-color: #16a34a;
+  background: var(--success-dark);
 }
 
 .delete-btn {
-  background-color: #ef4444;
-  color: white;
   border: none;
   border-radius: 5px;
-  cursor: pointer;
+  background: var(--danger);
+  color: white;
   font-weight: 500;
 }
 
 .delete-btn:hover {
-  background-color: #dc2626;
+  background: var(--danger-dark);
 }
+
+/* ================= EDIT MODE ================= */
 
 .edit-actions {
   display: flex;
@@ -318,14 +344,14 @@ button:not(:disabled):hover {
 }
 
 .save-btn {
-  background-color: #22c55e;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
   border: none;
+  border-radius: 5px;
+  background: var(--primary);
+  color: white;
 }
 
 .save-btn:hover {
+<<<<<<< HEAD
   background-color: #16a34a;
 }
 
@@ -335,19 +361,24 @@ button:not(:disabled):hover {
 
 .todo-container.dark .save-btn:hover {
   background-color: #22c55e;
+=======
+  background: var(--primary-dark);
+>>>>>>> 215fcd2 (Refactor CSS with variables)
 }
 
 .cancel-btn {
-  background: #e5e7eb; 
-  color: #111;
-  border-radius: 5px;
-  cursor: pointer;
   border: none;
+  border-radius: 5px;
+  background: #e5e7eb;
+  color: #111;
 }
 
 .cancel-btn:hover {
   background: #d1d5db;
 }
+
+/* ================= CLEAR COMPLETED ================= */
+
 .completed-container {
   margin-top: auto;
 }
@@ -358,15 +389,16 @@ button:not(:disabled):hover {
   padding: 12px;
   border: none;
   border-radius: 8px;
-  background-color: #ef4444;
+  background: var(--danger);
   color: white;
-  cursor: pointer;
   font-weight: 500;
 }
 
 .completed-btn:hover {
-  background-color: #dc2626;
+  background: var(--danger-dark);
 }
+
+/* ================= RESPONSIVE ================= */
 
 @media (max-width: 500px) {
   #root {
@@ -400,10 +432,6 @@ button:not(:disabled):hover {
     margin-right: 0;
   }
 
-  .add-btn {
-    width: 100%;
-  }
-
   .search-input input {
     width: 100%;
     margin-right: 0;
@@ -412,10 +440,6 @@ button:not(:disabled):hover {
   .todo-filters {
     flex-direction: column;
     gap: 8px;
-  }
-
-  .filter-btn {
-    width: 100%;
   }
 
   .todo-item {
@@ -431,11 +455,14 @@ button:not(:disabled):hover {
 
   .items-actions,
   .edit-actions {
+    display: flex;
     flex-direction: column;
     width: 100%;
     gap: 8px;
   }
 
+  .add-btn,
+  .filter-btn,
   .items-actions button,
   .edit-actions button {
     width: 100%;
@@ -449,5 +476,4 @@ button:not(:disabled):hover {
   .completed-btn {
     margin-top: 20px;
   }
-
 }
