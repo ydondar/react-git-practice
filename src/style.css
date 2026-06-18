@@ -85,12 +85,6 @@ button:not(:disabled):hover {
   align-items: center;
 }
 
-<<<<<<< HEAD
-.todo-container.dark {
-  background-color: #1f2937;
-  color: white;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-=======
 .header-right {
   display: flex;
   align-items: center;
@@ -224,7 +218,6 @@ button:not(:disabled):hover {
 
 .filter-btn.active:hover {
   background: var(--primary-dark);
->>>>>>> 215fcd2 (Refactor CSS with variables)
 }
 
 .todo-container.dark .filter-btn {
@@ -351,7 +344,6 @@ button:not(:disabled):hover {
 }
 
 .save-btn:hover {
-<<<<<<< HEAD
   background-color: #16a34a;
 }
 
@@ -360,10 +352,7 @@ button:not(:disabled):hover {
 }
 
 .todo-container.dark .save-btn:hover {
-  background-color: #22c55e;
-=======
-  background: var(--primary-dark);
->>>>>>> 215fcd2 (Refactor CSS with variables)
+  background: var(--success-dark);
 }
 
 .cancel-btn {
