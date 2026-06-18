@@ -2,7 +2,7 @@
 
 ## 🌐 Live Demo
 
-https://react-todo-app.vercel.app/
+https://react-todo-app-ecru-eta.vercel.app
 
 A clean and responsive Todo application built with React.  
 It includes filtering, search, dark mode, LocalStorage persistence, inline editing, and validation.
